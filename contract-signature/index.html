@@ -109,6 +109,12 @@
         function generateContractNumber() {
             return 'CN-' + Math.floor(Math.random() * 1000000);
         }
+
+         // 在页面加载完成时生成合同编号并显示在页面上
+        document.addEventListener('DOMContentLoaded', function() {
+            var contractNumber = generateContractNumber();
+            document.getElementById('contract-number').innerText = contractNumber;
+        });
         
         var canvas = document.getElementById('signature-pad');
         var signaturePad = new SignaturePad(canvas);
