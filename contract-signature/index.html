@@ -152,13 +152,14 @@
         });
 
         document.getElementById('save').addEventListener('click', function () {
-            if (signaturePad.isEmpty()) {
+             if (signaturePad.isEmpty()) {
                 return alert("请签字后再保存");
             }
 
             var data = {
-                signature: signaturePad.toDataURL(),
-                contractContent: document.body.innerHTML
+                 signature: signaturePad.toDataURL(),
+                contractContent: document.body.innerHTML,
+                timestamp: new Date().toISOString()
             };
 
             fetch('https://api.github.com/repos/nm594188/contract-signature/issues', {
@@ -169,15 +170,28 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    title: 'New Signature',
-                    body: JSON.stringify(data)
-                })
-            }).then(response => response.json())
-              .then(data => {
-                  alert('签名保存成功');
-              }).catch(error => {
-                  console.error('Error:', error);
-              });
+                    title: 'New Signature - ' + new Date().toLocaleString(),
+                    body: `
+                    ### 签名数据
+                    \`\`\`json
+                    ${JSON.stringify(data, null, 2)}
+                    \`\`\`
+
+                    ### 合同内容
+                    ${data.contractContent}
+                          `
+                         })
+                     }).then(response => response.json())
+            .then(data => {
+                 if (data.url) {
+                     alert('签名保存成功: ' + data.url);
+                     } else 
+                  alert('签名保存失败');
+                console.error('Error:', data);
+                 }
+                   }).catch(error => {
+             console.error('Error:', error);
+            });
         });
     </script>
 </body>
