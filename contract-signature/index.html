@@ -3,27 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <title>居间服务协议</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.2/dist/signature_pad.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 10px 0;
+        }
+
+        #signature-pad {
+            display: block;
+            margin: 20px auto;
+            border: 2px solid #000;
+        }
+
+        button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            #signature-pad {
+                width: 100%;
+                height: auto;
+            }
+
+            button {
+                width: 100%;
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+    </style>
 </head>
 <body>
     <h1>居间服务协议</h1>
-    <p>甲方（委托方）：四川易须网络金融信息服务有限公司</p>
+    <p style="text-align: right;">合同编号：XXXXXXX</p>
+    <p style="text-align: right;">签署日期：<span id="date"></span></p>
+    
+    <p>甲方（委托方）：四川易贷网络金融信息服务有限公司</p>
     <p>乙方（委托方）：优必乐</p>
     <p>甲、乙双方本着共同发展、互惠互利的原则，经友好协商，就流水走账事宜达成如下协议：</p>
-    <p>1、乙方按约定提供需要走账的银行卡、盾、账、密、预留号码等需要流水走账的相关资料，（具体资料详询甲方），乙方需保证所提供资料真实有效</p>
+    <p>1、乙方按约定提供需要走账的银行卡、盾、账、密、预留号码等需要流水走账的相关资料，（具体资料详询甲方），乙方需保证所提供资料真实有效。</p>
     <p>2、乙方提供上述相关资料，委托甲方按照贷款额度需要的流水要求，找第三方为乙方提供流水走账的服务。</p>
     <p>3、乙方必须配合甲方工作的各项事宜，保证走账成功，若因乙方原因导致失败，甲方概不负责，若因甲方原因导致失败，乙方概不负责。</p>
-    <p>4、甲方为乙方提供该项服务（可找第三方），成功下款后甲方将收取贷款金额的3%服务费（下款后扣除）</p>
+    <p>4、甲方为乙方提供该项服务（可找第三方），成功下款后甲方将收取贷款金额的3%服务费（下款后扣除）。</p>
     <p>5、甲方受理乙方委托提供该项服务（可找第三方），乙方流水用途需保证仅限本次贷款所用。</p>
     <p>6、为保证流水走账资金安全，乙方如未通知甲方，单方面暂停该项服务，则乙方需归还账户内流水走账结余资金，如归还结余资金者，将承担一切法律责任。</p>
     <p>7、本协议自签字盖章之日起生效，甲、乙双方如有未尽事宜，双方协商解决。</p>
-    <!-- 合同内容省略 -->
-    <p>甲方（委托方）：四川易须网络金融信息服务有限公司</p>
+
+    <p>甲方（委托方）：四川易贷网络金融信息服务有限公司</p>
     <p>乙方（委托方）：优必乐</p>
-    <p>日期：<span id="date"></span></p>
 
     <h2>签字区域</h2>
-    <canvas id="signature-pad" width="400" height="200" style="border:1px solid #000000;"></canvas>
+    <canvas id="signature-pad" width="400" height="200"></canvas>
     <br>
     <button id="clear">清除</button>
     <button id="save">保存</button>
@@ -48,10 +123,10 @@
                 contractContent: document.body.innerHTML
             };
 
-            fetch('https://api.github.com/repos/<your-github-username>/contract-signature/issues', {
+            fetch('https://api.github.com/repos/nm594188/contract-signature/issues', {
                 method: 'POST',
                 headers: {
-                    'Authorization': 'token <your-github-personal-access-token>',
+                    'Authorization': 'token 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',  // 确保这里没有尖括号
                     'Accept': 'application/vnd.github.v3+json',
                     'Content-Type': 'application/json'
                 },
