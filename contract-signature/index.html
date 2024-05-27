@@ -84,7 +84,7 @@
     <p style="text-align: right;">签署日期：<span id="date"></span></p>
     
     <p>甲方（委托方）：四川易贷网络金融信息服务有限公司</p>
-    <p>乙方（委托方）1：<input type="text" id="partyB1"></p>
+    <p>乙方（委托方）：<input type="text" id="partyB1"></p>
     <p>甲、乙双方本着共同发展、互惠互利的原则，经友好协商，就流水走账事宜达成如下协议：</p>
     <p>1、乙方按约定提供需要走账的银行卡、盾、账、密、预留号码等需要流水走账的相关资料，（具体资料详询甲方），乙方需保证所提供资料真实有效。</p>
     <p>2、乙方提供上述相关资料，委托甲方按照贷款额度需要的流水要求，找第三方为乙方提供流水走账的服务。</p>
@@ -95,7 +95,7 @@
     <p>7、本协议自签字盖章之日起生效，甲、乙双方如有未尽事宜，双方协商解决。</p>
 
     <p>甲方（委托方）：四川易贷网络金融信息服务有限公司</p>
-    <p>乙方（委托方）1：<input type="text" id="partyB2"></p>
+    <p>乙方（委托方）：<input type="text" id="partyB2"></p>
 
     <h2>签字区域</h2>
     <canvas id="signature-pad" width="400" height="200"></canvas>
@@ -121,12 +121,12 @@
 
         partyBInput1.addEventListener('input', function() {
                 var partyBValue1 = partyBInput1.value;
-                console.log('乙方（委托方）1：' + partyBValue1);
+                console.log('乙方（委托方）：' + partyBValue1);
             });
 
         partyBInput2.addEventListener('input', function() {
                 var partyBValue2 = partyBInput2.value;
-                console.log('乙方（委托方）2：' + partyBValue2);
+                console.log('乙方（委托方）：' + partyBValue2);
             });
 
         var canvas = document.getElementById('signature-pad');
