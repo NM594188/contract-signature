@@ -85,6 +85,9 @@
             width: 100px; /* 根据需要调整公章大小 */
             height: auto; /* 保持纵横比 */
             }
+        .company {
+            position: relative; /* 确保公司名称的容器是定位上下文 */
+            }
     </style>
 </head>
 <body>
@@ -104,8 +107,9 @@
     <p>7、本协议自签字盖章之日起生效，甲、乙双方如有未尽事宜，双方协商解决。</p>
 
     <p>甲方（委托方）：四川易贷网络金融信息服务有限公司</p>
-    <img class="seal" src="path/to/your/seal-image.png" alt="公司公章">
-
+    <div class="company">
+        <img class="seal" src="https://img2.imgtp.com/2024/05/27/V6qKQirX.png" alt="公司公章">
+        </div>
     <p>乙方（委托方）：<input type="text" id="partyB2"></p>
 
     <h2>签字区域</h2>
