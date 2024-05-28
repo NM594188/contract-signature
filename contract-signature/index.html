@@ -152,9 +152,11 @@
         });
 
         document.getElementById('save').addEventListener('click', function () {
-            if (signaturePad.isEmpty()) {
-                return alert("请签字后再保存");
+            if (signaturePad.isEmpty() || !partyBInput1.value || !partyBInput2.value) {
+                return alert("请填写完整信息并签字后再保存");
             }
+            // 继续保存操作
+        });
 
             var data = {
                 signature: signaturePad.toDataURL(),
