@@ -152,11 +152,9 @@
         });
 
         document.getElementById('save').addEventListener('click', function () {
-            if (signaturePad.isEmpty() || !partyBInput1.value || !partyBInput2.value) {
-                return alert("请填写完整信息并签字后再保存");
+             if (signaturePad.isEmpty()) {
+                 return alert("请签字后再保存");
             }
-            // 继续保存操作
-        });
 
             var data = {
                 signature: signaturePad.toDataURL(),
@@ -166,7 +164,7 @@
             fetch('https://api.github.com/repos/nm594188/contract-signature/issues', {
                 method: 'POST',
                 headers: {
-                    'Authorization': 'token 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',  // 确保这里没有尖括号
+                    'Authorization': 'token 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',  // 确保这里没有尖括号
                     'Accept': 'application/vnd.github.v3+json',
                     'Content-Type': 'application/json'
                 },
