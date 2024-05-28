@@ -2,37 +2,74 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>查看保存的合同</title>
+    <title>查看合同</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        input, button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        button {
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #contract-content {
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+        }
+    </style>
 </head>
 <body>
-    <h1>查看保存的合同</h1>
-    <div id="contracts-container"></div>
+    <h1>查看合同</h1>
+    <input type="text" id="contractNumber" placeholder="请输入合同编号">
+    <button onclick="getContract()">查看合同</button>
+    <div id="contract-content"></div>
 
     <script>
-        // 读取保存的合同（从 GitHub Issues 获取）
-        fetch('https://api.github.com/repos/nm594188/contract-signature/issues', {
-            method: 'GET',
-            headers: {
-                'Authorization': 'token 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', // 替换为你的 GitHub token
-                'Accept': 'application/vnd.github.v3+json'
+        async function getContract() {
+            const contractNumber = document.getElementById('contractNumber').value;
+            const response = await fetch(`https://api.github.com/repos/nm594188/contract-signature/issues`, {
+                headers: {
+                    'Authorization': 'token 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',  // 替换为你的token
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+            const issues = await response.json();
+            const issue = issues.find(issue => issue.body.includes(`"contractNumber":"${contractNumber}"`));
+            if (issue) {
+                const contract = JSON.parse(issue.body);
+                document.getElementById('contract-content').innerHTML = contract.contractContent;
+            } else {
+                alert('合同未找到');
             }
-        }).then(response => response.json())
-          .then(issues => {
-              const container = document.getElementById('contracts-container');
-              issues.forEach(issue => {
-                  const contractContent = JSON.parse(issue.body);
-                  const contractDiv = document.createElement('div');
-                  contractDiv.innerHTML = `
-                      <h2>${issue.title}</h2>
-                      <p>签名时间：${new Date(contractContent.timestamp).toLocaleString()}</p>
-                      <img src="${contractContent.signature}" alt="签名">
-                      <div>${contractContent.contractContent}</div>
-                  `;
-                  container.appendChild(contractDiv);
-              });
-          }).catch(error => {
-              console.error('Error:', error);
-          });
+        }
     </script>
 </body>
 </html>
