@@ -12,7 +12,7 @@
             padding: 20px;
             background-color: #f4f4f4;
         }
-        
+
         h1, h2 {
             text-align: center;
             color: #333;
@@ -77,6 +77,13 @@
             }
         }
 
+        input {
+            font-size: 16px;
+            padding: 5px;
+            margin: 10px 0;
+            width: calc(100% - 22px); /* 考虑padding和边框 */
+        }
+
         /* 公章样式 */
         .seal {
             position: absolute;
@@ -84,15 +91,16 @@
             right: 20px; /* 调整公章与页面右边的距离 */
             width: 100px; /* 根据需要调整公章大小 */
             height: auto; /* 保持纵横比 */
-            }
+        }
+
         .company {
             position: relative; /* 确保公司名称的容器是定位上下文 */
-            }
+        }
     </style>
 </head>
 <body>
     <h1>居间服务协议</h1>
-        <p style="text-align: right;">合同编号：<span id="contract-number"></span></p>
+    <p style="text-align: right;">合同编号：<span id="contract-number"></span></p>
     <p style="text-align: right;">签署日期：<span id="date"></span></p>
     
     <p>甲方（委托方）：四川易贷网络金融信息服务有限公司</p>
@@ -109,7 +117,7 @@
     <p>甲方（委托方）：四川易贷网络金融信息服务有限公司</p>
     <div class="company">
         <img class="seal" src="https://img2.imgtp.com/2024/05/27/V6qKQirX.png" alt="公司公章">
-        </div>
+    </div>
     <p>乙方（委托方）：<input type="text" id="partyB2"></p>
 
     <h2>签字区域</h2>
@@ -120,12 +128,12 @@
 
     <script>
         document.getElementById('date').textContent = new Date().toLocaleDateString();
-        
+
         function generateContractNumber() {
             return 'CN-' + Math.floor(Math.random() * 1000000);
         }
 
-         // 在页面加载完成时生成合同编号并显示在页面上
+        // 在页面加载完成时生成合同编号并显示在页面上
         document.addEventListener('DOMContentLoaded', function() {
             var contractNumber = generateContractNumber();
             document.getElementById('contract-number').innerText = contractNumber;
@@ -135,14 +143,14 @@
         var partyBInput2 = document.getElementById('partyB2');
 
         partyBInput1.addEventListener('input', function() {
-                var partyBValue1 = partyBInput1.value;
-                console.log('乙方（委托方）：' + partyBValue1);
-            });
+            var partyBValue1 = partyBInput1.value;
+            console.log('乙方（委托方）：' + partyBValue1);
+        });
 
         partyBInput2.addEventListener('input', function() {
-                var partyBValue2 = partyBInput2.value;
-                console.log('乙方（委托方）：' + partyBValue2);
-            });
+            var partyBValue2 = partyBInput2.value;
+            console.log('乙方（委托方）：' + partyBValue2);
+        });
 
         var canvas = document.getElementById('signature-pad');
         var signaturePad = new SignaturePad(canvas);
@@ -152,8 +160,8 @@
         });
 
         document.getElementById('save').addEventListener('click', function () {
-            if (signaturePad.isEmpty()) {
-                return alert("请签字后再保存");
+            if (signaturePad.isEmpty() || !partyBInput1.value || !partyBInput2.value) {
+                return alert("请填写完整信息并签字后再保存");
             }
 
             var data = {
@@ -172,12 +180,18 @@
                     title: 'New Signature',
                     body: JSON.stringify(data)
                 })
-            }).then(response => response.json())
-              .then(data => {
-                  alert('签名保存成功');
-              }).catch(error => {
-                  console.error('Error:', error);
-              });
+            }).then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Network response was not ok.');
+                }
+            }).then(data => {
+                alert('签名保存成功，Issue编号: ' + data.number);
+            }).catch(error => {
+                alert('保存签名时出错: ' + error.message);
+                console.error('Error:', error);
+            });
         });
     </script>
 </body>
