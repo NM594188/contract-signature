@@ -1,17 +1,17 @@
 const express = require('express');
 const axios = require('axios');
-const cors = require('cors'); // ÒıÈëCORS°ü
+const cors = require('cors'); // å¼•å…¥CORSåŒ…
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Ìæ»»ÎªÄãµÄ GitHub ¸öÈË·ÃÎÊÁîÅÆ
-const GITHUB_TOKEN = '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';
+// æ›¿æ¢ä¸ºä½ çš„ GitHub ä¸ªäººè®¿é—®ä»¤ç‰Œ
+const GITHUB_TOKEN = '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';
 
-// Ê¹ÓÃCORSÖĞ¼ä¼ş
+// ä½¿ç”¨CORSä¸­é—´ä»¶
 app.use(cors());
 app.use(express.json());
 
-// ĞŞ¸´ Authorization Í·²¿µÄ¸ñÊ½
+// ä¿®å¤ Authorization å¤´éƒ¨çš„æ ¼å¼
 app.get('/get-contract', async (req, res) => {
     const { contractNumber } = req.query;
 
@@ -39,7 +39,7 @@ app.get('/get-contract', async (req, res) => {
     }
 });
 
-// ĞÂÔö±£´æÇ©ÃûµÄÂ·ÓÉ
+// æ–°å¢ä¿å­˜ç­¾åçš„è·¯ç”±
 app.post('/save-signature', async (req, res) => {
     const { signature, contractNumber, partyB1, partyB2, date } = req.body;
 
@@ -62,7 +62,7 @@ app.post('/save-signature', async (req, res) => {
             }
         });
 
-        res.json({ message: 'Ç©Ãû±£´æ³É¹¦', issueUrl: response.data.html_url });
+        res.json({ message: 'ç­¾åä¿å­˜æˆåŠŸ', issueUrl: response.data.html_url });
     } catch (error) {
         console.error(error);
         res.status(500).send('Server error');
